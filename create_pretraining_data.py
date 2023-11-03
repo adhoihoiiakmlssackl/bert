@@ -127,7 +127,7 @@ def write_instance_to_example_files(instances, tokenizer, max_seq_length,
       masked_lm_ids.append(0)
       masked_lm_weights.append(0.0)
 
-    next_sentence_label = 1 if instance.is_random_next else 0
+    next_sentence_label = 1 if instance.is_random_next else 0 // 句子的二元关系分类 来确定下一句子是否是取自词库表还是连续
 
     features = collections.OrderedDict()
     features["input_ids"] = create_int_feature(input_ids)
@@ -164,7 +164,7 @@ def write_instance_to_example_files(instances, tokenizer, max_seq_length,
     writer.close()
 
   tf.logging.info("Wrote %d total instances", total_written)
-
+#########################---------
 
 def create_int_feature(values):
   feature = tf.train.Feature(int64_list=tf.train.Int64List(value=list(values)))
